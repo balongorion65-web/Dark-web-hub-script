@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Script · Ultimate Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- PARTICLES -->
+<div id="pContainer"></div>
+
+<!-- WELCOME SCREEN -->
+<div id="welcome">
+    <div class="wc">
+        <div class="wl"><i class="fas fa-skull"></i>Dark Script</div>
+        <div class="ws">✦ ULTIMATE SCRIPT HUB ✦</div>
+        <div class="wt">Roblox Script<br>Executor Pro</div>
+        <p class="wd">The most powerful platform for sharing and executing Roblox scripts. Login, post, and discover scripts from the community.</p>
+        <button class="wb" id="enterBtn"><i class="fas fa-rocket"></i>&nbsp; Enter the Dark</button>
+        <div class="wf2">
+            <span><i class="fas fa-check-circle"></i>Global Scripts</span>
+            <span><i class="fas fa-check-circle"></i>Image Upload</span>
+            <span><i class="fas fa-check-circle"></i>Made by Azl</span>
+        </div>
+    </div>
+</div>
+
+<!-- SIDEBAR OVERLAY -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <div class="sh">
+        <span class="bs"><i class="fas fa-skull" style="color:var(--red4);"></i> Dark Script</span>
+        <button class="cs" id="closeSidebar"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="su" id="sidebarUser">
+        <div class="al" id="sidebarAvatar">G</div>
+        <div class="info">
+            <div class="nm" id="sidebarName">Guest</div>
+            <div class="em" id="sidebarEmail">not signed in</div>
+        </div>
+    </div>
+    <div class="sm">
+        <button class="mi active" id="menuDashboard"><i class="fas fa-home"></i>Dashboard</button>
+        <button class="mi" id="menuAddScript"><i class="fas fa-plus-circle"></i>Add Script</button>
+        <button class="mi" id="menuMyScripts"><i class="fas fa-user-edit"></i>My Scripts</button>
+        <div class="div"></div>
+        <button class="mi" id="menuSearch"><i class="fas fa-search"></i>Search Scripts</button>
+        <button class="mi" id="menuStats"><i class="fas fa-chart-simple"></i>Statistics</button>
+        <div class="div"></div>
+        <button class="mi danger" id="menuLogout"><i class="fas fa-sign-out-alt"></i>Sign Out</button>
+        <div class="tut-side" id="sidebarTutorial">
+            <h4><i class="fas fa-graduation-cap"></i>How to Use</h4>
+            <p>1. <strong>Sign In</strong> with your name</p>
+            <p>2. <strong>Add Script</strong> — give it a name, game, and code</p>
+            <p>3. <strong>Upload Image</strong> (optional) for preview</p>
+            <p>4. <strong>Your scripts</strong> are visible to everyone, but only <strong>you</strong> can edit/delete them</p>
+            <p>5. Use <strong>search</strong> to find scripts by name, game, or code</p>
+            <div class="cr"><i class="fas fa-code" style="color:var(--red4);"></i> Made by <strong>Azl</strong> ❤️</div>
+        </div>
+    </div>
+</div>
+
+<!-- TUTORIAL OVERLAY -->
+<div class="tut-overlay" id="tutorialOverlay">
+    <div class="tc">
+        <h2><i class="fas fa-skull" style="color:var(--red4);-webkit-text-fill-color:initial;"></i> Welcome to Dark Script!</h2>
+        <div class="tsub">Here's how the platform works:</div>
+        <div class="ts"><div class="sn">1</div><div class="st"><strong>Sign In</strong> — Just enter your name (no email needed). Your scripts are saved to your name.</div></div>
+        <div class="ts"><div class="sn">2</div><div class="st"><strong>Add a Script</strong> — Give it a name, the game it's for, and paste your Lua code. You can also upload an image!</div></div>
+        <div class="ts"><div class="sn">3</div><div class="st"><strong>Global Feed</strong> — Everyone can see all scripts, but <strong>only you</strong> can edit or delete your own scripts.</div></div>
+        <div class="ts"><div class="sn">4</div><div class="st"><strong>Pagination</strong> — Scroll through pages 1, 2, 3, and more. Infinite scripts, no limits!</div></div>
+        <div class="ts"><div class="sn">5</div><div class="st"><strong>Menu</strong> — Click the ☰ (hamburger) icon for full controls. Tutorial is always available at the bottom.</div></div>
+        <div class="tf">
+            <label class="ds"><input type="checkbox" id="dontShowTutorial"> Don't show again</label>
+            <button class="btn-td" id="tutorialDoneBtn">Got it! Let's go</button>
+        </div>
+        <div class="cb"><i class="fas fa-code" style="color:var(--red4);"></i> Made by <strong>Azl</strong> ❤️</div>
+    </div>
+</div>
+
+<!-- MAIN APP -->
+<div class="app" id="appWrapper">
+    <!-- TOP BAR -->
+    <div class="top">
+        <div class="tl">
+            <div class="ham" id="hamburgerBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <div class="brand">
+                <i class="fas fa-skull"></i>Dark Script<small>v6</small>
+            </div>
+        </div>
+        <div class="tr">
+            <div class="ub" id="userBadge">
+                <div class="av" id="topAvatar">G</div>
+                <div class="nm" id="topName">Guest</div>
+            </div>
+            <button class="btn-auth" id="authToggleBtn"><i class="fas fa-user"></i> Sign In</button>
+        </div>
+    </div>
+
+    <!-- STATS -->
+    <div class="stats">
+        <div class="st"><span class="n" id="totalScriptsStat">0</span><span class="l">My Scripts</span></div>
+        <div class="st"><span class="n" id="totalUsersStat">0</span><span class="l">Users Online</span></div>
+        <div class="st"><span class="n" id="yourScriptsStat">0</span><span class="l">Total Scripts</span></div>
+        <div class="st"><span class="d">●</span><span class="l">Online</span></div>
+    </div>
+
+    <!-- SEARCH -->
+    <div class="sb">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search scripts by name, game, or code...">
+        <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+        <button class="clear" id="clearSearchBtn"><i class="fas fa-times"></i></button>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="panel">
+        <div class="fh">
+            <div class="ph" style="margin-bottom:0;">
+                <i class="fas fa-globe"></i>
+                Global Scripts
+                <span class="b">🌐 Public</span>
+            </div>
+            <span class="fc" id="feedCount">0 scripts</span>
+        </div>
+        <div class="feed" id="feedContainer">
+            <div class="empty">
+                <i class="fas fa-inbox"></i>
+                <p>No scripts posted yet.<br>Be the first to share your script!</p>
+            </div>
+        </div>
+        <div class="pag" id="paginationContainer"></div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <i class="fas fa-skull" style="color: var(--red4);"></i>
+        &nbsp; Dark Script · Ultimate Script Hub &nbsp;·&nbsp;
+        <span style="color: var(--tert);">v6.0</span> &nbsp;·&nbsp;
+        Made by <strong style="color: var(--red4);">Azl</strong> <i class="fas fa-heart" style="color: #ff4444;"></i>
+    </div>
+</div>
+
+<!-- ADD SCRIPT OVERLAY -->
+<div class="add-overlay" id="addScriptOverlay">
+    <div class="add-modal">
+        <button class="ca" id="closeAddScript"><i class="fas fa-times"></i></button>
+        <h2><i class="fas fa-code" style="color: var(--red4); -webkit-text-fill-color: initial;"></i> Add Your Script</h2>
+        <div class="ms">Share your script with the community. Only you can edit/delete it.</div>
+        <div class="fg">
+            <label><i class="fas fa-tag"></i> Script Name</label>
+            <input type="text" id="scriptNameInput" placeholder="e.g., Auto Farm, God Mode" value="My Script">
+        </div>
+        <div class="fg">
+            <label><i class="fas fa-gamepad"></i> Game Name</label>
+            <input type="text" id="scriptGameInput" placeholder="e.g., Blox Fruits, Pet Simulator" value="Blox Fruits">
+        </div>
+        <div class="fg">
+            <label><i class="fas fa-user-tag"></i> Author</label>
+            <input type="text" id="scriptAuthorInput" placeholder="Your name">
+        </div>
+        <div class="fg">
+            <label><i class="fas fa-file-code"></i> Script Code</label>
+            <textarea id="scriptCodeInput" placeholder="Paste your Lua script here...">print("Hello from Dark Script!")</textarea>
+        </div>
+        <div class="fg">
+            <label><i class="fas fa-image"></i> Upload Image (optional)</label>
+            <input type="file" id="scriptImageInput" accept="image/*">
+            <div class="ip" id="imagePreview">
+                <img id="previewImg" src="#" alt="Preview">
+            </div>
+        </div>
+        <button class="btn-sub" id="submitScriptBtn"><i class="fas fa-upload"></i> Publish Script</button>
+    </div>
+</div>
+
+<!-- AUTH OVERLAY -->
+<div class="auth-overlay" id="authModal">
+    <div class="auth-card">
+        <button class="ca" id="closeAuth"><i class="fas fa-times"></i></button>
+        <h2 id="authTitle">Sign In</h2>
+        <div class="as" id="authSub">Enter your name to get started</div>
+        <input type="text" id="authNameInput" placeholder="Your name" value="Player 1">
+        <button class="btn-as" id="authSubmitBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+        <div class="at" id="authToggle">New here? <span>Create Account</span></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
