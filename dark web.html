@@ -1,0 +1,2607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dark Script · Ultimate Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ============================================================
+                   ROOT VARIABLES - RED & BLACK THEME
+                   ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0505;
+            --bg-secondary: #140a0a;
+            --bg-card: rgba(30, 10, 10, 0.75);
+            --bg-card-hover: rgba(50, 15, 15, 0.8);
+            --border-glass: rgba(255, 40, 40, 0.08);
+            --border-glass-strong: rgba(255, 40, 40, 0.15);
+            --text-primary: #ffeaea;
+            --text-secondary: #cc8888;
+            --text-tertiary: #884444;
+            --accent-1: #ff2222;
+            --accent-2: #cc0000;
+            --accent-3: #ff4444;
+            --accent-4: #ff6666;
+            --gradient-main: linear-gradient(135deg, #ff2222, #cc0000, #990000);
+            --gradient-glow: linear-gradient(135deg, rgba(255, 34, 34, 0.3), rgba(204, 0, 0, 0.3));
+            --shadow-card: 0 20px 60px rgba(0, 0, 0, 0.8);
+            --radius-lg: 32px;
+            --radius-md: 20px;
+            --radius-sm: 14px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ============================================================
+                   BACKGROUND PARTICLES - RED
+                   ============================================================ */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            opacity: 0.02;
+            animation: floatParticle linear infinite;
+        }
+
+        @keyframes floatParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.02;
+            }
+            90% {
+                opacity: 0.02;
+            }
+            100% {
+                transform: translateY(-10vh) rotate(720deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================================
+                   WELCOME SCREEN
+                   ============================================================ */
+        #welcomeScreen {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-primary);
+            background-image: radial-gradient(ellipse at 50% 30%, rgba(255, 34, 34, 0.06) 0%, transparent 60%);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        #welcomeScreen.hidden {
+            opacity: 0;
+            transform: scale(1.05);
+            pointer-events: none;
+        }
+
+        .welcome-content {
+            text-align: center;
+            max-width: 700px;
+            padding: 40px 30px;
+            animation: welcomeFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes welcomeFloat {
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .welcome-logo {
+            font-size: 5rem;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+            letter-spacing: -2px;
+        }
+
+        .welcome-logo i {
+            -webkit-text-fill-color: initial;
+            color: var(--accent-4);
+            font-size: 4.5rem;
+            margin-right: 12px;
+        }
+
+        .welcome-sub {
+            font-size: 1.4rem;
+            color: var(--text-secondary);
+            font-weight: 300;
+            margin-bottom: 12px;
+            letter-spacing: 4px;
+        }
+
+        .welcome-title {
+            font-size: 3.2rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .welcome-desc {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.7;
+        }
+
+        .welcome-btn {
+            padding: 18px 60px;
+            border: none;
+            border-radius: 60px;
+            background: var(--gradient-main);
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 8px 40px rgba(255, 34, 34, 0.25);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .welcome-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 60px rgba(255, 34, 34, 0.4);
+        }
+
+        .welcome-btn::after {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 60px;
+            background: var(--gradient-main);
+            filter: blur(20px);
+            opacity: 0.3;
+            z-index: -1;
+            transition: var(--transition);
+        }
+
+        .welcome-btn:hover::after {
+            opacity: 0.6;
+            filter: blur(30px);
+        }
+
+        .welcome-features {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .welcome-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .welcome-feature i {
+            color: var(--accent-4);
+            font-size: 1.2rem;
+        }
+
+        /* ============================================================
+                   APP WRAPPER
+                   ============================================================ */
+        .app-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 16px 24px 40px;
+            opacity: 0;
+            transition: opacity 0.6s ease 0.3s;
+        }
+
+        .app-wrapper.visible {
+            opacity: 1;
+        }
+
+        /* ============================================================
+                   TOP BAR - LOGO + HAMBURGER + AUTH
+                   ============================================================ */
+        .top-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 22px;
+            background: var(--bg-card);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            margin-bottom: 16px;
+            box-shadow: var(--shadow-card);
+        }
+
+        .top-bar-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 10px;
+            transition: var(--transition);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 4px;
+            transition: var(--transition);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand i {
+            -webkit-text-fill-color: initial;
+            color: var(--accent-4);
+            font-size: 1.6rem;
+        }
+
+        .brand small {
+            font-size: 0.5rem;
+            -webkit-text-fill-color: var(--text-secondary);
+            font-weight: 400;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 2px 12px;
+            border-radius: 60px;
+        }
+
+        .top-bar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .user-badge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 4px 14px 4px 8px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .user-badge:hover {
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .user-badge .avatar-sm {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+        }
+
+        .user-badge .name {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .btn-auth-top {
+            padding: 8px 22px;
+            border: none;
+            border-radius: 60px;
+            background: var(--gradient-main);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-auth-top:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 30px rgba(255, 34, 34, 0.3);
+        }
+
+        /* ============================================================
+                   STATS BAR - COMPACT TOP
+                   ============================================================ */
+        .stats-bar-compact {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            padding: 10px 20px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-md);
+            margin-bottom: 18px;
+            box-shadow: var(--shadow-card);
+            flex-wrap: wrap;
+        }
+
+        .stat-compact {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .stat-compact .num {
+            font-weight: 800;
+            font-size: 1.1rem;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .stat-compact .label {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-tertiary);
+        }
+
+        .stat-compact .dot-online {
+            color: var(--accent-4);
+            font-size: 0.8rem;
+        }
+
+        /* ============================================================
+                   SEARCH BAR
+                   ============================================================ */
+        .search-wrapper {
+            margin-bottom: 18px;
+        }
+
+        .search-bar {
+            display: flex;
+            gap: 10px;
+            background: var(--bg-card);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--border-glass);
+            border-radius: 60px;
+            padding: 5px 5px 5px 22px;
+            align-items: center;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .search-bar:focus-within {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 50px rgba(255, 34, 34, 0.06);
+        }
+
+        .search-bar i {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            padding: 10px 0;
+            outline: none;
+            min-width: 80px;
+        }
+
+        .search-bar input::placeholder {
+            color: var(--text-tertiary);
+        }
+
+        .search-bar button {
+            padding: 10px 28px;
+            border: none;
+            border-radius: 60px;
+            background: var(--gradient-main);
+            color: #fff;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .search-bar button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 30px rgba(255, 34, 34, 0.2);
+        }
+
+        .search-bar .btn-clear-search {
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            padding: 8px 14px;
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .search-bar .btn-clear-search:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ============================================================
+                   MAIN GRID
+                   ============================================================ */
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        .panel-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 22px 20px;
+            box-shadow: var(--shadow-card);
+            transition: var(--transition);
+        }
+
+        .panel-card:hover {
+            border-color: var(--border-glass-strong);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--text-primary);
+        }
+
+        .panel-header i {
+            color: var(--accent-4);
+            font-size: 1.2rem;
+        }
+
+        .panel-header .badge {
+            margin-left: auto;
+            background: rgba(255, 34, 34, 0.08);
+            padding: 2px 14px;
+            border-radius: 60px;
+            font-size: 0.65rem;
+            color: var(--accent-1);
+            border: 1px solid rgba(255, 34, 34, 0.05);
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .feed-count {
+            background: rgba(255, 255, 255, 0.03);
+            padding: 3px 16px;
+            border-radius: 60px;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        /* ============================================================
+                   FEED CONTAINER
+                   ============================================================ */
+        .feed-container {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            min-height: 200px;
+        }
+
+        /* ============================================================
+                   FEED ITEM
+                   ============================================================ */
+        .feed-item {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            border-left: 3px solid var(--accent-1);
+            transition: var(--transition);
+            animation: slideUp 0.3s ease;
+        }
+
+        .feed-item:hover {
+            background: rgba(0, 0, 0, 0.45);
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .feed-item .meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .feed-item .meta .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feed-item .meta .user-info .avatar-xs {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.6rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .feed-item .meta .user-info .username {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .feed-item .meta .user-info .timestamp {
+            font-size: 0.65rem;
+            color: var(--text-tertiary);
+        }
+
+        .feed-item .meta .game-tag {
+            background: rgba(255, 34, 34, 0.06);
+            padding: 2px 14px;
+            border-radius: 60px;
+            font-size: 0.65rem;
+            color: var(--accent-4);
+            border: 1px solid rgba(255, 34, 34, 0.04);
+        }
+
+        .feed-item .script-image {
+            margin: 8px 0 12px 0;
+            max-width: 100%;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .feed-item .script-image img {
+            width: 100%;
+            max-height: 200px;
+            object-fit: cover;
+            display: block;
+            border-radius: var(--radius-sm);
+        }
+
+        .feed-item .script-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .feed-item .code-preview {
+            color: #ccaaaa;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.75rem;
+            white-space: pre-wrap;
+            word-break: break-all;
+            max-height: 60px;
+            overflow: hidden;
+            opacity: 0.8;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .feed-item .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .feed-item .actions button {
+            background: rgba(255, 255, 255, 0.02);
+            border: none;
+            color: var(--text-secondary);
+            padding: 4px 16px;
+            border-radius: 60px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .feed-item .actions button:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .feed-item .actions .delete-btn {
+            color: #ff4444;
+        }
+
+        .feed-item .actions .delete-btn:hover {
+            background: rgba(255, 68, 68, 0.06);
+        }
+
+        .feed-item .actions .edit-btn {
+            color: var(--accent-4);
+        }
+
+        .feed-item .actions .edit-btn:hover {
+            background: rgba(255, 102, 102, 0.06);
+        }
+
+        .feed-empty {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-tertiary);
+        }
+
+        .feed-empty i {
+            font-size: 3rem;
+            opacity: 0.15;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        /* ============================================================
+                   PAGINATION
+                   ============================================================ */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination button {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-size: 0.85rem;
+            font-weight: 500;
+            min-width: 40px;
+        }
+
+        .pagination button:hover {
+            background: rgba(255, 34, 34, 0.06);
+            color: #fff;
+            border-color: var(--accent-1);
+        }
+
+        .pagination button.active {
+            background: var(--gradient-main);
+            color: #fff;
+            border-color: var(--accent-1);
+            box-shadow: 0 0 20px rgba(255, 34, 34, 0.15);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination .page-dots {
+            color: var(--text-tertiary);
+            padding: 0 8px;
+            font-size: 0.9rem;
+        }
+
+        /* ============================================================
+                   SIDEBAR
+                   ============================================================ */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9996;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -400px;
+            width: 380px;
+            max-width: 85vw;
+            height: 100vh;
+            z-index: 9997;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-glass-strong);
+            padding: 28px 22px;
+            transition: left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            overflow-y: auto;
+            box-shadow: 10px 0 60px rgba(0, 0, 0, 0.8);
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 3px;
+        }
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--accent-1);
+            border-radius: 10px;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .sidebar-header .brand-sm {
+            font-size: 1.4rem;
+            font-weight: 900;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-header .close-sidebar {
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .sidebar-header .close-sidebar:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .sidebar-user {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .sidebar-user .avatar-lg {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: var(--gradient-main);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .sidebar-user .info .name {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+        .sidebar-user .info .email {
+            font-size: 0.75rem;
+            color: var(--text-tertiary);
+        }
+
+        .sidebar-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .sidebar-menu .menu-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 16px;
+            border-radius: var(--radius-sm);
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            background: transparent;
+            width: 100%;
+            font-size: 0.95rem;
+            font-weight: 500;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .sidebar-menu .menu-item:hover {
+            background: rgba(255, 255, 255, 0.04);
+            color: #fff;
+        }
+
+        .sidebar-menu .menu-item i {
+            width: 24px;
+            color: var(--accent-4);
+            font-size: 1.1rem;
+        }
+
+        .sidebar-menu .menu-item.active {
+            background: rgba(255, 34, 34, 0.06);
+            color: #fff;
+            border-left: 3px solid var(--accent-1);
+        }
+
+        .sidebar-menu .menu-divider {
+            height: 1px;
+            background: rgba(255, 255, 255, 0.04);
+            margin: 8px 0;
+        }
+
+        .sidebar-menu .menu-item.danger {
+            color: #ff4444;
+        }
+        .sidebar-menu .menu-item.danger i {
+            color: #ff4444;
+        }
+        .sidebar-menu .menu-item.danger:hover {
+            background: rgba(255, 68, 68, 0.06);
+        }
+
+        /* ============================================================
+                   TUTORIAL IN SIDEBAR (at the bottom)
+                   ============================================================ */
+        .sidebar-tutorial {
+            margin-top: 20px;
+            padding: 16px 18px;
+            background: rgba(255, 34, 34, 0.04);
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 34, 34, 0.06);
+        }
+
+        .sidebar-tutorial h4 {
+            color: var(--accent-4);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sidebar-tutorial p {
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            line-height: 1.6;
+            margin-bottom: 6px;
+        }
+
+        .sidebar-tutorial .credit {
+            color: var(--text-tertiary);
+            font-size: 0.7rem;
+            margin-top: 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 8px;
+        }
+
+        .sidebar-tutorial .credit strong {
+            color: var(--accent-4);
+        }
+
+        /* ============================================================
+                   TUTORIAL OVERLAY (First Time)
+                   ============================================================ */
+        .tutorial-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9995;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: blur(20px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .tutorial-overlay.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .tutorial-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass-strong);
+            border-radius: var(--radius-lg);
+            padding: 44px 40px;
+            max-width: 560px;
+            width: 100%;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+            animation: scaleIn 0.4s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.92);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .tutorial-card h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 4px;
+        }
+
+        .tutorial-card .tutorial-sub {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+        }
+
+        .tutorial-card .tutorial-step {
+            display: flex;
+            gap: 14px;
+            margin-bottom: 16px;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: var(--radius-sm);
+            border-left: 2px solid var(--accent-1);
+        }
+
+        .tutorial-card .tutorial-step .step-num {
+            color: var(--accent-4);
+            font-weight: 800;
+            font-size: 1.1rem;
+            min-width: 28px;
+        }
+
+        .tutorial-card .tutorial-step .step-text {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .tutorial-card .tutorial-step .step-text strong {
+            color: var(--text-primary);
+        }
+
+        .tutorial-card .tutorial-footer {
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .tutorial-card .tutorial-footer .dont-show {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--text-tertiary);
+            font-size: 0.85rem;
+            cursor: pointer;
+        }
+
+        .tutorial-card .tutorial-footer .dont-show input[type="checkbox"] {
+            accent-color: var(--accent-1);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .tutorial-card .tutorial-footer .btn-tutorial-done {
+            padding: 12px 36px;
+            border: none;
+            border-radius: 60px;
+            background: var(--gradient-main);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(255, 34, 34, 0.15);
+        }
+
+        .tutorial-card .tutorial-footer .btn-tutorial-done:hover {
+            transform: scale(1.02);
+            box-shadow: 0 6px 40px rgba(255, 34, 34, 0.25);
+        }
+
+        .tutorial-card .credit-bottom {
+            margin-top: 16px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 14px;
+        }
+
+        .tutorial-card .credit-bottom strong {
+            color: var(--accent-4);
+        }
+
+        /* ============================================================
+                   ADD SCRIPT OVERLAY
+                   ============================================================ */
+        .add-script-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9995;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(20px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .add-script-overlay.active {
+            display: flex;
+        }
+
+        .add-script-modal {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass-strong);
+            border-radius: var(--radius-lg);
+            padding: 38px 34px;
+            max-width: 580px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.9);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .add-script-modal::-webkit-scrollbar {
+            width: 4px;
+        }
+        .add-script-modal::-webkit-scrollbar-thumb {
+            background: var(--accent-1);
+            border-radius: 10px;
+        }
+
+        .add-script-modal .close-add {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 1.6rem;
+            cursor: pointer;
+            transition: var(--transition);
+            line-height: 1;
+        }
+
+        .add-script-modal .close-add:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .add-script-modal h2 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .add-script-modal .modal-sub {
+            color: var(--text-secondary);
+            margin-bottom: 22px;
+            font-size: 0.95rem;
+        }
+
+        .add-script-modal .form-group {
+            margin-bottom: 14px;
+        }
+
+        .add-script-modal .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 5px;
+        }
+
+        .add-script-modal .form-group label i {
+            color: var(--accent-4);
+            margin-right: 8px;
+        }
+
+        .add-script-modal .form-group input,
+        .add-script-modal .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .add-script-modal .form-group input:focus,
+        .add-script-modal .form-group textarea:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 30px rgba(255, 34, 34, 0.06);
+        }
+
+        .add-script-modal .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .add-script-modal .form-group input[type="file"] {
+            padding: 10px 12px;
+            color: var(--text-secondary);
+            background: rgba(0, 0, 0, 0.2);
+            border: 1px dashed rgba(255, 255, 255, 0.06);
+        }
+
+        .add-script-modal .form-group .image-preview {
+            margin-top: 8px;
+            max-width: 100%;
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+            display: none;
+        }
+
+        .add-script-modal .form-group .image-preview img {
+            width: 100%;
+            max-height: 150px;
+            object-fit: cover;
+            border-radius: var(--radius-sm);
+        }
+
+        .add-script-modal .btn-submit-script {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--gradient-main);
+            color: #fff;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(255, 34, 34, 0.12);
+            margin-top: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .add-script-modal .btn-submit-script:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 40px rgba(255, 34, 34, 0.2);
+        }
+
+        /* ============================================================
+                   AUTH MODAL
+                   ============================================================ */
+        .auth-modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(16px);
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .auth-modal-overlay.active {
+            display: flex;
+        }
+
+        .auth-modal-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-lg);
+            padding: 40px 36px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 50px 100px rgba(0, 0, 0, 0.8);
+            animation: scaleIn 0.3s ease;
+        }
+
+        .auth-modal-card .close-auth {
+            float: right;
+            background: none;
+            border: none;
+            color: var(--text-tertiary);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .auth-modal-card .close-auth:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        .auth-modal-card h2 {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+            background: var(--gradient-main);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .auth-modal-card .auth-sub {
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-size: 0.9rem;
+        }
+
+        .auth-modal-card input {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .auth-modal-card input:focus {
+            border-color: var(--accent-1);
+            box-shadow: 0 0 30px rgba(255, 34, 34, 0.06);
+        }
+
+        .auth-modal-card .btn-auth-submit {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: var(--radius-sm);
+            background: var(--gradient-main);
+            color: #fff;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 30px rgba(255, 34, 34, 0.12);
+        }
+
+        .auth-modal-card .btn-auth-submit:hover {
+            transform: scale(1.01);
+            box-shadow: 0 6px 40px rgba(255, 34, 34, 0.2);
+        }
+
+        .auth-modal-card .auth-toggle-link {
+            margin-top: 16px;
+            text-align: center;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .auth-modal-card .auth-toggle-link span {
+            color: var(--accent-1);
+            font-weight: 600;
+        }
+
+        .auth-modal-card .auth-toggle-link span:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .app-footer {
+            margin-top: 32px;
+            text-align: center;
+            color: var(--text-tertiary);
+            font-size: 0.75rem;
+            padding: 16px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.02);
+        }
+
+        .app-footer a {
+            color: var(--accent-1);
+            text-decoration: none;
+        }
+
+        /* ============================================================
+                   RESPONSIVE
+                   ============================================================ */
+        @media (max-width: 768px) {
+            .top-bar {
+                padding: 10px 14px;
+            }
+            .brand {
+                font-size: 1.2rem;
+            }
+            .brand i {
+                font-size: 1.3rem;
+            }
+            .user-badge .name {
+                font-size: 0.75rem;
+            }
+            .stats-bar-compact {
+                gap: 14px;
+                padding: 8px 14px;
+            }
+            .stat-compact {
+                font-size: 0.75rem;
+            }
+            .stat-compact .num {
+                font-size: 0.95rem;
+            }
+            .sidebar {
+                width: 300px;
+            }
+            .search-bar {
+                flex-wrap: wrap;
+                padding: 10px;
+                border-radius: var(--radius-md);
+            }
+            .search-bar input {
+                width: 100%;
+            }
+            .search-bar button {
+                width: 100%;
+                justify-content: center;
+            }
+            .add-script-modal {
+                padding: 24px 16px;
+                margin: 0 10px;
+            }
+            .auth-modal-card {
+                padding: 28px 20px;
+                margin: 0 12px;
+            }
+            .welcome-title {
+                font-size: 2.2rem;
+            }
+            .welcome-logo {
+                font-size: 3.5rem;
+            }
+            .tutorial-card {
+                padding: 28px 20px;
+                margin: 0 12px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .app-wrapper {
+                padding: 10px 10px 30px;
+            }
+            .top-bar-right .btn-auth-top {
+                padding: 6px 14px;
+                font-size: 0.75rem;
+            }
+            .user-badge {
+                padding: 2px 10px 2px 4px;
+            }
+            .user-badge .avatar-sm {
+                width: 24px;
+                height: 24px;
+                font-size: 0.6rem;
+            }
+            .stats-bar-compact {
+                gap: 10px;
+                padding: 6px 10px;
+            }
+            .stat-compact .label {
+                display: none;
+            }
+            .feed-item {
+                padding: 12px 14px;
+            }
+            .pagination button {
+                padding: 6px 12px;
+                font-size: 0.75rem;
+                min-width: 32px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+    BACKGROUND PARTICLES
+    ============================================================ -->
+    <div class="bg-particles" id="particlesContainer"></div>
+
+    <!-- ============================================================
+    WELCOME SCREEN
+    ============================================================ -->
+    <div id="welcomeScreen">
+        <div class="welcome-content">
+            <div class="welcome-logo">
+                <i class="fas fa-skull"></i> Dark Script
+            </div>
+            <div class="welcome-sub">✦ ULTIMATE SCRIPT HUB ✦</div>
+            <div class="welcome-title">Roblox Script<br>Executor Pro</div>
+            <p class="welcome-desc">
+                The most powerful platform for sharing and executing Roblox scripts.
+                Login, post, and discover scripts from the community.
+            </p>
+            <button class="welcome-btn" id="enterBtn">
+                <i class="fas fa-rocket"></i> &nbsp; Enter the Dark
+            </button>
+            <div class="welcome-features">
+                <span class="welcome-feature"><i class="fas fa-check-circle"></i> Global Scripts</span>
+                <span class="welcome-feature"><i class="fas fa-check-circle"></i> Image Upload</span>
+                <span class="welcome-feature"><i class="fas fa-check-circle"></i> Made by Azl</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    SIDEBAR OVERLAY
+    ============================================================ -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <!-- ============================================================
+    SIDEBAR
+    ============================================================ -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="brand-sm"><i class="fas fa-skull" style="color:var(--accent-4);"></i> Dark Script</span>
+            <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+        </div>
+
+        <div class="sidebar-user" id="sidebarUser">
+            <div class="avatar-lg" id="sidebarAvatar">G</div>
+            <div class="info">
+                <div class="name" id="sidebarName">Guest</div>
+                <div class="email" id="sidebarEmail">not signed in</div>
+            </div>
+        </div>
+
+        <div class="sidebar-menu">
+            <button class="menu-item active" id="menuDashboard">
+                <i class="fas fa-home"></i> Dashboard
+            </button>
+            <button class="menu-item" id="menuAddScript">
+                <i class="fas fa-plus-circle"></i> Add Script
+            </button>
+            <button class="menu-item" id="menuMyScripts">
+                <i class="fas fa-user-edit"></i> My Scripts
+            </button>
+            <div class="menu-divider"></div>
+            <button class="menu-item" id="menuSearch">
+                <i class="fas fa-search"></i> Search Scripts
+            </button>
+            <button class="menu-item" id="menuStats">
+                <i class="fas fa-chart-simple"></i> Statistics
+            </button>
+            <div class="menu-divider"></div>
+            <button class="menu-item danger" id="menuLogout">
+                <i class="fas fa-sign-out-alt"></i> Sign Out
+            </button>
+
+            <!-- TUTORIAL IN SIDEBAR (bottom) -->
+            <div class="sidebar-tutorial" id="sidebarTutorial">
+                <h4><i class="fas fa-graduation-cap"></i> How to Use</h4>
+                <p>1. <strong>Sign In</strong> with your name</p>
+                <p>2. <strong>Add Script</strong> — give it a name, game, and code</p>
+                <p>3. <strong>Upload Image</strong> (optional) for preview</p>
+                <p>4. <strong>Your scripts</strong> are visible to everyone, but only <strong>you</strong> can edit/delete them</p>
+                <p>5. Use <strong>search</strong> to find scripts by name, game, or code</p>
+                <div class="credit">
+                    <i class="fas fa-code" style="color:var(--accent-4);"></i> Made by <strong>Azl</strong> ❤️
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    TUTORIAL OVERLAY (First Time)
+    ============================================================ -->
+    <div class="tutorial-overlay" id="tutorialOverlay">
+        <div class="tutorial-card">
+            <h2><i class="fas fa-skull" style="color:var(--accent-4); -webkit-text-fill-color:initial;"></i> Welcome to Dark Script!</h2>
+            <div class="tutorial-sub">Here's how the platform works:</div>
+
+            <div class="tutorial-step">
+                <div class="step-num">1</div>
+                <div class="step-text"><strong>Sign In</strong> — Just enter your name (no email needed). Your scripts are saved to your name.</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-num">2</div>
+                <div class="step-text"><strong>Add a Script</strong> — Give it a name, the game it's for, and paste your Lua code. You can also upload an image!</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-num">3</div>
+                <div class="step-text"><strong>Global Feed</strong> — Everyone can see all scripts, but <strong>only you</strong> can edit or delete your own scripts.</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-num">4</div>
+                <div class="step-text"><strong>Pagination</strong> — Scroll through pages 1, 2, 3, and more. Infinite scripts, no limits!</div>
+            </div>
+            <div class="tutorial-step">
+                <div class="step-num">5</div>
+                <div class="step-text"><strong>Menu</strong> — Click the ☰ (hamburger) icon for full controls. Tutorial is always available at the bottom.</div>
+            </div>
+
+            <div class="tutorial-footer">
+                <label class="dont-show">
+                    <input type="checkbox" id="dontShowTutorial"> Don't show again
+                </label>
+                <button class="btn-tutorial-done" id="tutorialDoneBtn">Got it! Let's go</button>
+            </div>
+            <div class="credit-bottom">
+                <i class="fas fa-code" style="color:var(--accent-4);"></i> Made by <strong>Azl</strong> ❤️
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MAIN APP
+    ============================================================ -->
+    <div class="app-wrapper" id="appWrapper">
+
+        <!-- ===== TOP BAR ===== -->
+        <div class="top-bar">
+            <div class="top-bar-left">
+                <div class="hamburger" id="hamburgerBtn">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="brand">
+                    <i class="fas fa-skull"></i>
+                    Dark Script
+                    <small>v6</small>
+                </div>
+            </div>
+            <div class="top-bar-right">
+                <div class="user-badge" id="userBadge">
+                    <div class="avatar-sm" id="topAvatar">G</div>
+                    <div class="name" id="topName">Guest</div>
+                </div>
+                <button class="btn-auth-top" id="authToggleBtn">
+                    <i class="fas fa-user"></i> Sign In
+                </button>
+            </div>
+        </div>
+
+        <!-- ===== STATS BAR - COMPACT ===== -->
+        <div class="stats-bar-compact">
+            <div class="stat-compact">
+                <span class="num" id="totalScriptsStat">0</span>
+                <span class="label">My Scripts</span>
+            </div>
+            <div class="stat-compact">
+                <span class="num" id="totalUsersStat">0</span>
+                <span class="label">Users Online</span>
+            </div>
+            <div class="stat-compact">
+                <span class="num" id="yourScriptsStat">0</span>
+                <span class="label">Total Scripts</span>
+            </div>
+            <div class="stat-compact">
+                <span class="dot-online">●</span>
+                <span class="label">Online</span>
+            </div>
+        </div>
+
+        <!-- ===== SEARCH BAR ===== -->
+        <div class="search-wrapper">
+            <div class="search-bar">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Search scripts by name, game, or code...">
+                <button id="searchBtn"><i class="fas fa-search"></i> Search</button>
+                <button class="btn-clear-search" id="clearSearchBtn"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <!-- ===== MAIN GRID ===== -->
+        <div class="main-grid" id="mainGrid">
+            <div class="panel-card">
+                <div class="feed-header">
+                    <div class="panel-header" style="margin-bottom:0;">
+                        <i class="fas fa-globe"></i>
+                        Global Scripts
+                        <span class="badge">🌐 Public</span>
+                    </div>
+                    <span class="feed-count" id="feedCount">0 scripts</span>
+                </div>
+                <div class="feed-container" id="feedContainer">
+                    <div class="feed-empty">
+                        <i class="fas fa-inbox"></i>
+                        <p>No scripts posted yet.<br>Be the first to share your script!</p>
+                    </div>
+                </div>
+                <!-- PAGINATION -->
+                <div class="pagination" id="paginationContainer"></div>
+            </div>
+        </div>
+
+        <!-- ===== FOOTER ===== -->
+        <div class="app-footer">
+            <i class="fas fa-skull" style="color: var(--accent-4);"></i>
+            &nbsp; Dark Script · Ultimate Script Hub &nbsp;·&nbsp;
+            <span style="color: var(--text-tertiary);">v6.0</span> &nbsp;·&nbsp;
+            Made by <strong style="color: var(--accent-4);">Azl</strong> <i class="fas fa-heart" style="color: #ff4444;"></i>
+        </div>
+
+    </div>
+
+    <!-- ============================================================
+    ADD SCRIPT OVERLAY
+    ============================================================ -->
+    <div class="add-script-overlay" id="addScriptOverlay">
+        <div class="add-script-modal">
+            <button class="close-add" id="closeAddScript"><i class="fas fa-times"></i></button>
+            <h2><i class="fas fa-code" style="color: var(--accent-4); -webkit-text-fill-color: initial;"></i> Add Your Script</h2>
+            <div class="modal-sub">Share your script with the community. Only you can edit/delete it.</div>
+
+            <div class="form-group">
+                <label><i class="fas fa-tag"></i> Script Name</label>
+                <input type="text" id="scriptNameInput" placeholder="e.g., Auto Farm, God Mode" value="My Script">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-gamepad"></i> Game Name</label>
+                <input type="text" id="scriptGameInput" placeholder="e.g., Blox Fruits, Pet Simulator" value="Blox Fruits">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-user-tag"></i> Author</label>
+                <input type="text" id="scriptAuthorInput" placeholder="Your name">
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-file-code"></i> Script Code</label>
+                <textarea id="scriptCodeInput" placeholder="Paste your Lua script here...">print("Hello from Dark Script!")</textarea>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fas fa-image"></i> Upload Image (optional)</label>
+                <input type="file" id="scriptImageInput" accept="image/*">
+                <div class="image-preview" id="imagePreview">
+                    <img id="previewImg" src="#" alt="Preview">
+                </div>
+            </div>
+
+            <button class="btn-submit-script" id="submitScriptBtn">
+                <i class="fas fa-upload"></i> Publish Script
+            </button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    AUTH MODAL
+    ============================================================ -->
+    <div class="auth-modal-overlay" id="authModal">
+        <div class="auth-modal-card">
+            <button class="close-auth" id="closeAuth"><i class="fas fa-times"></i></button>
+            <h2 id="authTitle">Sign In</h2>
+            <div class="auth-sub" id="authSub">Enter your name to get started</div>
+            <input type="text" id="authNameInput" placeholder="Your name" value="Player 1">
+            <button class="btn-auth-submit" id="authSubmitBtn"><i class="fas fa-sign-in-alt"></i> Sign In</button>
+            <div class="auth-toggle-link" id="authToggle">
+                New here? <span>Create Account</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    JAVASCRIPT
+    ============================================================ -->
+    <script>
+        (function() {
+            'use strict';
+
+            // ============================================================
+            // 1. PARTICLES
+            // ============================================================
+            (function createParticles() {
+                const container = document.getElementById('particlesContainer');
+                for (let i = 0; i < 20; i++) {
+                    const p = document.createElement('div');
+                    p.className = 'particle';
+                    const size = Math.random() * 180 + 40;
+                    p.style.width = size + 'px';
+                    p.style.height = size + 'px';
+                    p.style.left = Math.random() * 100 + '%';
+                    p.style.animationDuration = (Math.random() * 40 + 30) + 's';
+                    p.style.animationDelay = (Math.random() * 30) + 's';
+                    container.appendChild(p);
+                }
+            })();
+
+            // ============================================================
+            // 2. WELCOME SCREEN
+            // ============================================================
+            const welcomeScreen = document.getElementById('welcomeScreen');
+            const appWrapper = document.getElementById('appWrapper');
+            const enterBtn = document.getElementById('enterBtn');
+
+            if (sessionStorage.getItem('darkScript_welcome_shown') === 'true') {
+                welcomeScreen.classList.add('hidden');
+                appWrapper.classList.add('visible');
+            }
+
+            enterBtn.addEventListener('click', function() {
+                welcomeScreen.classList.add('hidden');
+                appWrapper.classList.add('visible');
+                sessionStorage.setItem('darkScript_welcome_shown', 'true');
+                // Check if tutorial should show
+                checkTutorial();
+            });
+
+            // ============================================================
+            // 3. STATE & STORAGE
+            // ============================================================
+            const SCRIPTS_KEY = 'darkScript_scripts_v6';
+            const USER_KEY = 'darkScript_user_v6';
+            const TUTORIAL_KEY = 'darkScript_tutorial_done';
+
+            let currentUser = { name: 'Guest' };
+            let isLoggedIn = false;
+            let allScripts = [];
+            let isSignUpMode = false;
+            let imageDataURL = null;
+            let currentPage = 1;
+            const ITEMS_PER_PAGE = 10;
+
+            // ============================================================
+            // 4. DOM REFERENCES
+            // ============================================================
+            // Top bar
+            const topAvatar = document.getElementById('topAvatar');
+            const topName = document.getElementById('topName');
+            const authToggleBtn = document.getElementById('authToggleBtn');
+            const userBadge = document.getElementById('userBadge');
+
+            // Sidebar
+            const sidebar = document.getElementById('sidebar');
+            const sidebarOverlay = document.getElementById('sidebarOverlay');
+            const hamburgerBtn = document.getElementById('hamburgerBtn');
+            const closeSidebar = document.getElementById('closeSidebar');
+            const sidebarAvatar = document.getElementById('sidebarAvatar');
+            const sidebarName = document.getElementById('sidebarName');
+            const sidebarEmail = document.getElementById('sidebarEmail');
+
+            // Auth
+            const authModal = document.getElementById('authModal');
+            const closeAuth = document.getElementById('closeAuth');
+            const authTitle = document.getElementById('authTitle');
+            const authSub = document.getElementById('authSub');
+            const authNameInput = document.getElementById('authNameInput');
+            const authSubmitBtn = document.getElementById('authSubmitBtn');
+            const authToggle = document.getElementById('authToggle');
+
+            // Search
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const clearSearchBtn = document.getElementById('clearSearchBtn');
+
+            // Feed
+            const feedContainer = document.getElementById('feedContainer');
+            const feedCount = document.getElementById('feedCount');
+            const paginationContainer = document.getElementById('paginationContainer');
+
+            // Stats
+            const totalScriptsStat = document.getElementById('totalScriptsStat');
+            const totalUsersStat = document.getElementById('totalUsersStat');
+            const yourScriptsStat = document.getElementById('yourScriptsStat');
+
+            // Add Script
+            const addScriptOverlay = document.getElementById('addScriptOverlay');
+            const closeAddScript = document.getElementById('closeAddScript');
+            const scriptNameInput = document.getElementById('scriptNameInput');
+            const scriptGameInput = document.getElementById('scriptGameInput');
+            const scriptAuthorInput = document.getElementById('scriptAuthorInput');
+            const scriptCodeInput = document.getElementById('scriptCodeInput');
+            const scriptImageInput = document.getElementById('scriptImageInput');
+            const imagePreview = document.getElementById('imagePreview');
+            const previewImg = document.getElementById('previewImg');
+            const submitScriptBtn = document.getElementById('submitScriptBtn');
+
+            // Tutorial
+            const tutorialOverlay = document.getElementById('tutorialOverlay');
+            const dontShowTutorial = document.getElementById('dontShowTutorial');
+            const tutorialDoneBtn = document.getElementById('tutorialDoneBtn');
+
+            // Menu items
+            const menuDashboard = document.getElementById('menuDashboard');
+            const menuAddScript = document.getElementById('menuAddScript');
+            const menuMyScripts = document.getElementById('menuMyScripts');
+            const menuSearch = document.getElementById('menuSearch');
+            const menuStats = document.getElementById('menuStats');
+            const menuLogout = document.getElementById('menuLogout');
+
+            // ============================================================
+            // 5. TUTORIAL
+            // ============================================================
+            function checkTutorial() {
+                const tutorialDone = localStorage.getItem(TUTORIAL_KEY);
+                if (!tutorialDone && isLoggedIn) {
+                    tutorialOverlay.classList.add('active');
+                }
+            }
+
+            tutorialDoneBtn.addEventListener('click', function() {
+                if (dontShowTutorial.checked) {
+                    localStorage.setItem(TUTORIAL_KEY, 'true');
+                }
+                tutorialOverlay.classList.remove('active');
+            });
+
+            // Also close tutorial if user clicks outside
+            tutorialOverlay.addEventListener('click', function(e) {
+                if (e.target === this) {
+                    if (dontShowTutorial.checked) {
+                        localStorage.setItem(TUTORIAL_KEY, 'true');
+                    }
+                    tutorialOverlay.classList.remove('active');
+                }
+            });
+
+            // ============================================================
+            // 6. CORE FUNCTIONS
+            // ============================================================
+
+            function getScripts() {
+                try {
+                    const data = localStorage.getItem(SCRIPTS_KEY);
+                    return data ? JSON.parse(data) : [];
+                } catch (e) { return []; }
+            }
+
+            function saveScripts(scripts) {
+                localStorage.setItem(SCRIPTS_KEY, JSON.stringify(scripts));
+                allScripts = scripts;
+                renderFeed();
+                updateStats();
+                renderPagination();
+            }
+
+            function loadUser() {
+                try {
+                    const saved = localStorage.getItem(USER_KEY);
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        if (parsed.name) {
+                            currentUser = parsed;
+                            isLoggedIn = true;
+                            updateUI();
+                            return true;
+                        }
+                    }
+                } catch (e) {}
+                return false;
+            }
+
+            function saveUser(name) {
+                currentUser = { name: name.trim() || 'Guest' };
+                isLoggedIn = true;
+                localStorage.setItem(USER_KEY, JSON.stringify(currentUser));
+                updateUI();
+                // Show tutorial after first login
+                const tutorialDone = localStorage.getItem(TUTORIAL_KEY);
+                if (!tutorialDone) {
+                    setTimeout(() => {
+                        tutorialOverlay.classList.add('active');
+                    }, 400);
+                }
+            }
+
+            function logout() {
+                isLoggedIn = false;
+                currentUser = { name: 'Guest' };
+                localStorage.removeItem(USER_KEY);
+                updateUI();
+                renderFeed();
+                updateStats();
+                renderPagination();
+            }
+
+            function updateUI() {
+                const initial = isLoggedIn ? currentUser.name.charAt(0).toUpperCase() : '?';
+                const displayName = isLoggedIn ? currentUser.name : 'Guest';
+
+                topAvatar.textContent = initial;
+                topName.textContent = displayName;
+                authToggleBtn.innerHTML = isLoggedIn ?
+                    '<i class="fas fa-sign-out-alt"></i> Sign Out' :
+                    '<i class="fas fa-user"></i> Sign In';
+
+                sidebarAvatar.textContent = initial;
+                sidebarName.textContent = displayName;
+                sidebarEmail.textContent = isLoggedIn ? 'online' : 'not signed in';
+
+                if (isLoggedIn) {
+                    scriptAuthorInput.value = currentUser.name;
+                } else {
+                    scriptAuthorInput.value = 'Anonymous';
+                }
+
+                renderFeed();
+                updateStats();
+                renderPagination();
+            }
+
+            function updateStats() {
+                const scripts = getScripts();
+                const userScripts = isLoggedIn ?
+                    scripts.filter(s => s.user.name === currentUser.name) :
+                    [];
+
+                totalScriptsStat.textContent = userScripts.length;
+                const uniqueUsers = new Set(scripts.map(s => s.user.name));
+                totalUsersStat.textContent = uniqueUsers.size || 0;
+                yourScriptsStat.textContent = scripts.length;
+            }
+
+            // ============================================================
+            // 7. RENDER FEED (GLOBAL - everyone sees all scripts)
+            // ============================================================
+            function renderFeed(filter = '', page = 1) {
+                const scripts = getScripts();
+                let filtered = scripts;
+
+                if (filter.trim()) {
+                    const term = filter.toLowerCase().trim();
+                    filtered = scripts.filter(item =>
+                        (item.scriptName && item.scriptName.toLowerCase().includes(term)) ||
+                        item.script.toLowerCase().includes(term) ||
+                        (item.game && item.game.toLowerCase().includes(term)) ||
+                        (item.user && item.user.name && item.user.name.toLowerCase().includes(term))
+                    );
+                }
+
+                // Pagination
+                const totalItems = filtered.length;
+                const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE) || 1;
+                if (page > totalPages) page = totalPages;
+                if (page < 1) page = 1;
+                currentPage = page;
+
+                const start = (page - 1) * ITEMS_PER_PAGE;
+                const end = start + ITEMS_PER_PAGE;
+                const pageItems = filtered.slice(start, end);
+
+                feedCount.textContent = totalItems + ' scripts';
+
+                if (pageItems.length === 0) {
+                    feedContainer.innerHTML = `
+                        <div class="feed-empty">
+                            <i class="fas fa-inbox"></i>
+                            <p>${filter.trim() ? 'No scripts found.' : 'No scripts posted yet. Be the first to share!'}</p>
+                        </div>
+                    `;
+                    renderPagination(totalItems, page);
+                    return;
+                }
+
+                let html = '';
+                pageItems.forEach(item => {
+                    const time = new Date(item.timestamp).toLocaleString('en-US', { hour12: false });
+                    const scriptName = item.scriptName || 'Untitled Script';
+                    const game = item.game || 'Unknown Game';
+                    const preview = item.script.length > 200 ? item.script.substring(0, 200) + '…' : item.script;
+                    const safeScript = item.script.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const safePreview = preview.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+                    const initial = item.user.name.charAt(0).toUpperCase();
+                    const isOwner = isLoggedIn && item.user.name === currentUser.name;
+
+                    let imageHtml = '';
+                    if (item.image) {
+                        imageHtml = `
+                            <div class="script-image">
+                                <img src="${item.image}" alt="Script image">
+                            </div>
+                        `;
+                    }
+
+                    html += `
+                        <div class="feed-item" data-id="${item.id}">
+                            <div class="meta">
+                                <div class="user-info">
+                                    <div class="avatar-xs">${initial}</div>
+                                    <span class="username">${item.user.name}</span>
+                                    <span class="timestamp">· ${time}</span>
+                                </div>
+                                <span class="game-tag">🎮 ${game}</span>
+                            </div>
+                            <div class="script-name">📜 ${scriptName}</div>
+                            ${imageHtml}
+                            <div class="code-preview">${safePreview}</div>
+                            <div class="actions">
+                                <button class="copy-btn" data-script="${safeScript}"><i class="fas fa-copy"></i> Copy</button>
+                                ${isOwner ? `<button class="edit-btn" data-edit="${item.id}"><i class="fas fa-edit"></i> Edit</button>` : ''}
+                                ${isOwner ? `<button class="delete-btn" data-delete="${item.id}"><i class="fas fa-trash"></i> Delete</button>` : ''}
+                            </div>
+                        </div>
+                    `;
+                });
+
+                feedContainer.innerHTML = html;
+
+                // Copy buttons
+                feedContainer.querySelectorAll('.copy-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const script = this.dataset.script;
+                        navigator.clipboard.writeText(script).then(() => {
+                            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            setTimeout(() => {
+                                this.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                            }, 2000);
+                        }).catch(() => {
+                            const ta = document.createElement('textarea');
+                            ta.value = script;
+                            document.body.appendChild(ta);
+                            ta.select();
+                            document.execCommand('copy');
+                            document.body.removeChild(ta);
+                            this.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                            setTimeout(() => {
+                                this.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                            }, 2000);
+                        });
+                    });
+                });
+
+                // Delete buttons (only owner)
+                feedContainer.querySelectorAll('.delete-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.delete;
+                        if (confirm('Delete this script permanently?')) {
+                            let scripts = getScripts();
+                            scripts = scripts.filter(s => s.id !== id);
+                            saveScripts(scripts);
+                        }
+                    });
+                });
+
+                // Edit buttons (only owner)
+                feedContainer.querySelectorAll('.edit-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const id = this.dataset.edit;
+                        const scripts = getScripts();
+                        const item = scripts.find(s => s.id === id);
+                        if (item) {
+                            scriptNameInput.value = item.scriptName || '';
+                            scriptGameInput.value = item.game || '';
+                            scriptAuthorInput.value = item.user.name || '';
+                            scriptCodeInput.value = item.script || '';
+                            if (item.image) {
+                                imageDataURL = item.image;
+                                previewImg.src = item.image;
+                                imagePreview.style.display = 'block';
+                            }
+                            // Remove old script then open modal
+                            scripts = scripts.filter(s => s.id !== id);
+                            saveScripts(scripts);
+                            openAddScript();
+                        }
+                    });
+                });
+
+                renderPagination(totalItems, page);
+            }
+
+            // ============================================================
+            // 8. PAGINATION
+            // ============================================================
+            function renderPagination(totalItems = null, page = null) {
+                const scripts = getScripts();
+                const filter = searchInput.value.trim();
+                let filtered = scripts;
+                if (filter.trim()) {
+                    const term = filter.toLowerCase().trim();
+                    filtered = scripts.filter(item =>
+                        (item.scriptName && item.scriptName.toLowerCase().includes(term)) ||
+                        item.script.toLowerCase().includes(term) ||
+                        (item.game && item.game.toLowerCase().includes(term)) ||
+                        (item.user && item.user.name && item.user.name.toLowerCase().includes(term))
+                    );
+                }
+
+                const total = totalItems !== null ? totalItems : filtered.length;
+                const totalPages = Math.ceil(total / ITEMS_PER_PAGE) || 1;
+                const current = page || currentPage || 1;
+
+                if (totalPages <= 1) {
+                    paginationContainer.innerHTML = '';
+                    return;
+                }
+
+                let html = '';
+                // Previous
+                html += `<button class="page-btn" data-page="${current - 1}" ${current <= 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
+
+                // Page numbers with smart truncation
+                const maxVisible = 7;
+                let startPage = Math.max(1, current - 3);
+                let endPage = Math.min(totalPages, current + 3);
+
+                if (endPage - startPage < maxVisible - 1) {
+                    if (startPage === 1) {
+                        endPage = Math.min(totalPages, startPage + maxVisible - 1);
+                    } else if (endPage === totalPages) {
+                        startPage = Math.max(1, endPage - maxVisible + 1);
+                    }
+                }
+
+                if (startPage > 1) {
+                    html += `<button class="page-btn" data-page="1">1</button>`;
+                    if (startPage > 2) html += `<span class="page-dots">…</span>`;
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    html += `<button class="page-btn ${i === current ? 'active' : ''}" data-page="${i}">${i}</button>`;
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) html += `<span class="page-dots">…</span>`;
+                    html += `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>`;
+                }
+
+                // Next
+                html += `<button class="page-btn" data-page="${current + 1}" ${current >= totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
+
+                paginationContainer.innerHTML = html;
+
+                // Event listeners for page buttons
+                paginationContainer.querySelectorAll('.page-btn:not([disabled])').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const pageNum = parseInt(this.dataset.page);
+                        if (pageNum && pageNum !== current) {
+                            currentPage = pageNum;
+                            renderFeed(searchInput.value.trim(), pageNum);
+                            // Scroll to top of feed
+                            document.querySelector('.panel-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+            }
+
+            // ============================================================
+            // 9. ADD SCRIPT
+            // ============================================================
+            function addScript(scriptName, game, author, scriptCode, image) {
+                if (!scriptCode.trim()) {
+                    alert('Please enter your script code!');
+                    return false;
+                }
+                if (!scriptName.trim()) {
+                    alert('Please enter a script name!');
+                    return false;
+                }
+                if (!isLoggedIn || !currentUser.name) {
+                    alert('⚠️ You need to sign in first!');
+                    authModal.classList.add('active');
+                    return false;
+                }
+
+                const scripts = getScripts();
+                const newEntry = {
+                    id: Date.now() + '_' + Math.random().toString(36).substr(2, 8),
+                    scriptName: scriptName.trim(),
+                    script: scriptCode.trim(),
+                    game: game.trim() || 'Unknown Game',
+                    user: { name: author.trim() || currentUser.name },
+                    image: image || null,
+                    timestamp: new Date().toISOString()
+                };
+                scripts.unshift(newEntry);
+                if (scripts.length > 1000) scripts.length = 1000; // Max 1000 scripts
+                saveScripts(scripts);
+                return true;
+            }
+
+            // ============================================================
+            // 10. ADD SCRIPT OVERLAY
+            // ============================================================
+            function openAddScript() {
+                if (!isLoggedIn) {
+                    alert('Please sign in first!');
+                    authModal.classList.add('active');
+                    return;
+                }
+                addScriptOverlay.classList.add('active');
+                if (!scriptNameInput.value) {
+                    scriptNameInput.value = '';
+                    scriptGameInput.value = '';
+                    scriptCodeInput.value = '';
+                }
+                scriptImageInput.value = '';
+                if (!imageDataURL) {
+                    imagePreview.style.display = 'none';
+                }
+                setTimeout(() => scriptNameInput.focus(), 100);
+            }
+
+            function closeAddScriptModal() {
+                addScriptOverlay.classList.remove('active');
+                scriptImageInput.value = '';
+                if (!imageDataURL) {
+                    imagePreview.style.display = 'none';
+                }
+            }
+
+            // Image preview
+            scriptImageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        imageDataURL = e.target.result;
+                        previewImg.src = imageDataURL;
+                        imagePreview.style.display = 'block';
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    imagePreview.style.display = 'none';
+                    imageDataURL = null;
+                }
+            });
+
+            // Submit
+            submitScriptBtn.addEventListener('click', function() {
+                const name = scriptNameInput.value.trim();
+                const game = scriptGameInput.value.trim();
+                const author = scriptAuthorInput.value.trim() || currentUser.name;
+                const code = scriptCodeInput.value;
+                const image = imageDataURL;
+
+                if (addScript(name, game, author, code, image)) {
+                    scriptNameInput.value = '';
+                    scriptGameInput.value = '';
+                    scriptCodeInput.value = '';
+                    scriptImageInput.value = '';
+                    imagePreview.style.display = 'none';
+                    imageDataURL = null;
+                    closeAddScriptModal();
+                    renderFeed(searchInput.value.trim(), 1);
+                    updateStats();
+                    renderPagination();
+                }
+            });
+
+            // ============================================================
+            // 11. SIDEBAR
+            // ============================================================
+            function toggleSidebar() {
+                sidebar.classList.toggle('open');
+                sidebarOverlay.classList.toggle('active');
+                hamburgerBtn.classList.toggle('active');
+            }
+
+            function closeSidebarMenu() {
+                sidebar.classList.remove('open');
+                sidebarOverlay.classList.remove('active');
+                hamburgerBtn.classList.remove('active');
+            }
+
+            hamburgerBtn.addEventListener('click', toggleSidebar);
+            closeSidebar.addEventListener('click', closeSidebarMenu);
+            sidebarOverlay.addEventListener('click', closeSidebarMenu);
+
+            // Menu items
+            menuDashboard.addEventListener('click', function() {
+                closeSidebarMenu();
+                renderFeed(searchInput.value.trim(), 1);
+            });
+
+            menuAddScript.addEventListener('click', function() {
+                closeSidebarMenu();
+                openAddScript();
+            });
+
+            menuMyScripts.addEventListener('click', function() {
+                closeSidebarMenu();
+                // Filter to show only user's scripts
+                if (isLoggedIn) {
+                    const filter = currentUser.name;
+                    searchInput.value = filter;
+                    renderFeed(filter, 1);
+                } else {
+                    alert('Please sign in to see your scripts.');
+                }
+            });
+
+            menuSearch.addEventListener('click', function() {
+                closeSidebarMenu();
+                searchInput.focus();
+            });
+
+            menuStats.addEventListener('click', function() {
+                closeSidebarMenu();
+                const scripts = getScripts();
+                const userScripts = isLoggedIn ? scripts.filter(s => s.user.name === currentUser.name) : [];
+                alert('📊 Statistics:\n' +
+                    'Total Scripts: ' + scripts.length + '\n' +
+                    'Your Scripts: ' + userScripts.length + '\n' +
+                    'Unique Users: ' + new Set(scripts.map(s => s.user.name)).size + '\n' +
+                    'Logged in: ' + (isLoggedIn ? 'Yes (' + currentUser.name + ')' : 'No'));
+            });
+
+            menuLogout.addEventListener('click', function() {
+                closeSidebarMenu();
+                if (isLoggedIn) {
+                    if (confirm('Sign out?')) logout();
+                } else {
+                    authModal.classList.add('active');
+                }
+            });
+
+            // ============================================================
+            // 12. AUTH MODAL (Name only)
+            // ============================================================
+            function openAuth(mode = 'signin') {
+                isSignUpMode = (mode === 'signup');
+                authModal.classList.add('active');
+                if (isSignUpMode) {
+                    authTitle.textContent = 'Create Account';
+                    authSub.textContent = 'Enter your name to get started';
+                    authSubmitBtn.innerHTML = '<i class="fas fa-user-plus"></i> Create Account';
+                    authToggle.innerHTML = 'Already have an account? <span>Sign In</span>';
+                } else {
+                    authTitle.textContent = 'Sign In';
+                    authSub.textContent = 'Enter your name';
+                    authSubmitBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
+                    authToggle.innerHTML = "New here? <span>Create Account</span>";
+                }
+                authNameInput.value = '';
+                setTimeout(() => authNameInput.focus(), 100);
+            }
+
+            function closeAuthModal() {
+                authModal.classList.remove('active');
+            }
+
+            function handleAuthSubmit() {
+                const name = authNameInput.value.trim();
+                if (!name) {
+                    alert('Please enter your name.');
+                    return;
+                }
+                saveUser(name);
+                closeAuthModal();
+                renderFeed(searchInput.value.trim(), 1);
+                updateStats();
+                renderPagination();
+            }
+
+            authToggleBtn.addEventListener('click', function() {
+                if (isLoggedIn) {
+                    if (confirm('Sign out?')) logout();
+                } else {
+                    openAuth('signin');
+                }
+            });
+
+            userBadge.addEventListener('click', function() {
+                if (isLoggedIn) {
+                    if (confirm('Sign out?')) logout();
+                } else {
+                    openAuth('signin');
+                }
+            });
+
+            closeAuth.addEventListener('click', closeAuthModal);
+            authModal.addEventListener('click', function(e) {
+                if (e.target === this) closeAuthModal();
+            });
+
+            authToggle.addEventListener('click', function() {
+                if (isSignUpMode) {
+                    openAuth('signin');
+                } else {
+                    openAuth('signup');
+                }
+            });
+
+            authSubmitBtn.addEventListener('click', handleAuthSubmit);
+            authNameInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') handleAuthSubmit();
+            });
+
+            // ============================================================
+            // 13. SEARCH
+            // ============================================================
+            function performSearch() {
+                const query = searchInput.value.trim();
+                renderFeed(query, 1);
+                renderPagination();
+            }
+
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+            clearSearchBtn.addEventListener('click', function() {
+                searchInput.value = '';
+                renderFeed('', 1);
+                renderPagination();
+            });
+
+            // ============================================================
+            // 14. KEYBOARD SHORTCUTS
+            // ============================================================
+            document.addEventListener('keydown', function(e) {
+                // Ctrl+Shift+A to open add script
+                if (e.key === 'A' && e.ctrlKey && e.shiftKey) {
+                    e.preventDefault();
+                    openAddScript();
+                }
+                // Escape to close overlays
+                if (e.key === 'Escape') {
+                    if (addScriptOverlay.classList.contains('active')) {
+                        closeAddScriptModal();
+                    }
+                    if (sidebar.classList.contains('open')) {
+                        closeSidebarMenu();
+                    }
+                    if (authModal.classList.contains('active')) {
+                        closeAuthModal();
+                    }
+                    if (tutorialOverlay.classList.contains('active')) {
+                        if (dontShowTutorial.checked) {
+                            localStorage.setItem(TUTORIAL_KEY, 'true');
+                        }
+                        tutorialOverlay.classList.remove('active');
+                    }
+                }
+            });
+
+            // ============================================================
+            // 15. INIT
+            // ============================================================
+            loadUser();
+            renderFeed('', 1);
+            updateStats();
+            renderPagination();
+
+            console.log('🔥 Dark Script v6.0 loaded!');
+            console.log('👤 User:', currentUser);
+            console.log('🌐 Global scripts: everyone can see all scripts');
+            console.log('🔒 Only owners can edit/delete their scripts');
+            console.log('⌨️ Shortcut: Ctrl+Shift+A to add script');
+            console.log('📄 Pagination: 10 scripts per page, infinite pages!');
+            console.log('❤️ Made by Azl');
+
+        })();
+    </script>
+
+</body>
+</html>
